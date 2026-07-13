@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>CleanChain x Franchise Expo Thailand 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Taviraj:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal-950:#08302f;
+    --teal-900:#0b3d3e;
+    --teal-800:#0f4d4b;
+    --aqua-500:#1fb5a3;
+    --aqua-300:#7fe0d1;
+    --gold-500:#e8b94a;
+    --gold-300:#f3d693;
+    --cream-050:#f6f4ee;
+    --ink-900:#0b2523;
+    --ink-600:#3c5654;
+    --line:rgba(255,255,255,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:#e4e0d5;
+    color:var(--ink-900);
+    font-family:'IBM Plex Sans Thai', sans-serif;
+    line-height:1.6;
+    -webkit-text-size-adjust:100%;
+  }
+  .app-shell{
+    max-width:480px;
+    margin:0 auto;
+    background:var(--cream-050);
+    min-height:100vh;
+    box-shadow:0 0 40px rgba(0,0,0,0.12);
+  }
+  h1,h2,h3,.display{
+    font-family:'Taviraj', serif;
+    font-weight:600;
+    margin:0;
+  }
+  a{color:inherit;}
+  .wrap{padding:0 22px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:radial-gradient(140% 120% at 15% 0%, var(--teal-800) 0%, var(--teal-900) 45%, var(--teal-950) 100%);
+    color:#fff;
+    overflow:hidden;
+    padding:40px 0 44px;
+  }
+  .ripple-field{
+    position:absolute;
+    right:-90px; top:-90px;
+    width:280px; height:280px;
+    pointer-events:none;
+  }
+  .ripple-field svg{width:100%; height:100%; opacity:0.85;}
+  .ring{
+    fill:none;
+    stroke:var(--aqua-300);
+    stroke-width:1.2;
+    opacity:0;
+    animation:ripple 4.5s ease-out infinite;
+  }
+  .ring.r2{animation-delay:1.1s;}
+  .ring.r3{animation-delay:2.2s;}
+  .ring.r4{animation-delay:3.3s;}
+  @keyframes ripple{
+    0%{ transform:scale(0.35); opacity:0.85; stroke-width:2.2;}
+    100%{ transform:scale(1); opacity:0; stroke-width:0.4;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .ring{animation:none; opacity:0.25;}
+  }
+  .coin{
+    fill:var(--gold-500);
+  }
+  .badge-row{
+    display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+    margin-bottom:20px;
+  }
+  .badge{
+    font-family:'IBM Plex Sans Thai',sans-serif;
+    font-size:12px; letter-spacing:.03em;
+    padding:6px 12px; border-radius:999px;
+    border:1px solid var(--line);
+    color:var(--aqua-300);
+    background:rgba(255,255,255,0.04);
+  }
+  .badge.gold{
+    color:var(--teal-950);
+    background:var(--gold-500);
+    border-color:var(--gold-500);
+    font-weight:600;
+  }
+  .hero h1{
+    font-size:28px;
+    line-height:1.32;
+    margin-bottom:14px;
+    position:relative; z-index:1;
+  }
+  .hero .lede{
+    color:rgba(255,255,255,0.78);
+    font-size:14.5px;
+    margin-bottom:24px;
+    position:relative; z-index:1;
+  }
+  .value-pill{
+    display:flex; align-items:center; gap:14px;
+    background:linear-gradient(135deg, var(--gold-300), var(--gold-500));
+    color:var(--teal-950);
+    padding:14px 18px;
+    border-radius:14px;
+    margin-bottom:26px;
+    position:relative; z-index:1;
+  }
+  .value-pill .num{
+    font-family:'Taviraj',serif; font-weight:700;
+    font-size:26px;
+    white-space:nowrap;
+  }
+  .value-pill .label{font-size:12.5px; font-weight:500;}
+
+  .meta-row{
+    display:flex; flex-direction:column; gap:12px;
+    border-top:1px solid var(--line);
+    padding-top:18px;
+  }
+  .meta-item{display:flex; justify-content:space-between; align-items:baseline; gap:12px;}
+  .meta-item .k{font-size:12px; color:var(--aqua-300); letter-spacing:.03em;}
+  .meta-item .v{font-size:13.5px; font-weight:500; text-align:right;}
+
+  /* ---------- FORM ---------- */
+  .register{padding:32px 0 48px;}
+  .lock-teaser{
+    display:flex; align-items:center; gap:12px;
+    background:var(--teal-950);
+    color:#fff;
+    border-radius:14px;
+    padding:13px 14px;
+    margin-bottom:22px;
+  }
+  .lock-icon{
+    flex:0 0 auto;
+    width:32px; height:32px; border-radius:9px;
+    background:var(--gold-500); color:var(--teal-950);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lock-teaser strong{display:block; font-size:13.5px; font-weight:600;}
+  .lock-teaser span{display:block; font-size:12px; color:rgba(255,255,255,0.65); margin-top:2px;}
+  .form-card{
+    background:#fff;
+    border:1px solid rgba(11,61,62,0.1);
+    border-radius:18px;
+    padding:24px 20px;
+    box-shadow:0 16px 36px -22px rgba(11,61,62,0.3);
+  }
+  .form-card h2{font-size:20px; color:var(--teal-950); margin-bottom:6px;}
+  .form-card .sub{font-size:13.5px; color:var(--ink-600); margin-bottom:22px;}
+  .field{margin-bottom:16px;}
+  .field label{
+    display:block; font-size:13px; font-weight:600; color:var(--teal-950);
+    margin-bottom:7px;
+  }
+  .field .opt{font-weight:400; color:#9aa8a7; margin-left:4px;}
+  .field input, .field select{
+    width:100%;
+    padding:13px 14px;
+    border-radius:10px;
+    border:1.4px solid #dbe3e1;
+    font-family:'IBM Plex Sans Thai',sans-serif;
+    font-size:16px;
+    color:var(--ink-900);
+    background:#fbfbf9;
+    -webkit-appearance:none;
+    appearance:none;
+  }
+  .field select{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%233c5654' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+    padding-right:36px;
+  }
+  .field input:focus, .field select:focus{
+    outline:2px solid var(--aqua-500);
+    outline-offset:1px;
+    border-color:var(--aqua-500);
+    background-color:#fff;
+  }
+  .submit-btn{
+    width:100%;
+    padding:16px 0;
+    border:none;
+    border-radius:12px;
+    background:var(--teal-900);
+    color:#fff;
+    font-family:'IBM Plex Sans Thai',sans-serif;
+    font-weight:600;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:4px;
+    transition:background .15s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .submit-btn:active{background:var(--teal-800);}
+  .submit-btn:focus-visible{outline:2px solid var(--gold-500); outline-offset:2px;}
+  .form-foot{
+    text-align:center; font-size:12px; color:#93a3a1; margin-top:14px;
+  }
+
+  footer{
+    background:var(--teal-950); color:rgba(255,255,255,0.6);
+    padding:22px 0 calc(22px + env(safe-area-inset-bottom)); text-align:center; font-size:12.5px;
+  }
+  footer strong{color:#fff;}
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+<section class="hero">
+  <div class="ripple-field" aria-hidden="true">
+    <svg viewBox="0 0 400 400">
+      <circle class="ring" cx="200" cy="200" r="160"/>
+      <circle class="ring r2" cx="200" cy="200" r="160"/>
+      <circle class="ring r3" cx="200" cy="200" r="160"/>
+      <circle class="ring r4" cx="200" cy="200" r="160"/>
+      <circle class="coin" cx="200" cy="200" r="30"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="badge-row">
+      <span class="badge gold">Franchise Expo Thailand 2026</span>
+      <span class="badge">บูธ C9</span>
+    </div>
+    <h1>จองในงานวันนี้<br>รับสิทธิ์พิเศษก่อนใคร</h1>
+    <p class="lede">นักลงทุนห้ามพลาดงานนี้ — จัดเต็มโปรโมชั่นใหญ่ที่สุดแห่งปีของธุรกิจร้านสะดวกซัก CleanChain</p>
+
+    <div class="value-pill">
+      <span class="num">400,000฿</span>
+      <span class="label">มูลค่ารวมของแถมและสิทธิประโยชน์เฉพาะในงาน</span>
+    </div>
+
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="k">วันที่จัดงาน</span>
+        <span class="v">6 – 9 สิงหาคม 2569</span>
+      </div>
+      <div class="meta-item">
+        <span class="k">สถานที่</span>
+        <span class="v">IMPACT เมืองทองธานี</span>
+      </div>
+      <div class="meta-item">
+        <span class="k">พบเราที่</span>
+        <span class="v">บูธ C9</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<section class="register" id="register">
+  <div class="wrap">
+    <div class="form-card">
+      <h2>จองสิทธิ์ล่วงหน้า</h2>
+      <p class="sub">กรอกข้อมูลเพื่อรับสิทธิพิเศษก่อนใคร ทีมงานจะติดต่อกลับก่อนวันงาน</p>
+
+      <div class="lock-teaser">
+        <div class="lock-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 10V8a6 6 0 1112 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="4" y="10" width="16" height="11" rx="2.5" stroke="currentColor" stroke-width="2"/></svg>
+        </div>
+        <div>
+          <strong>รายละเอียดกิจกรรมประมูล 1 บาท</strong>
+          <span>ปลดล็อกทันทีหลังกรอกฟอร์มด้านล่าง</span>
+        </div>
+      </div>
+
+      <form onsubmit="event.preventDefault();">
+        <div class="field">
+          <label for="name">ชื่อ-นามสกุล</label>
+          <input id="name" type="text" placeholder="ชื่อ นามสกุล" required>
+        </div>
+        <div class="field">
+          <label for="phone">เบอร์โทรศัพท์</label>
+          <input id="phone" type="tel" placeholder="08X-XXX-XXXX" required>
+        </div>
+        <div class="field">
+          <label for="line">LINE ID <span class="opt">(ถ้ามี)</span></label>
+          <input id="line" type="text" placeholder="LINE ID">
+        </div>
+        <div class="field">
+          <label for="visit-date">วันที่คาดว่าจะเข้าร่วมงาน</label>
+          <select id="visit-date" required>
+            <option value="" disabled selected>เลือกวันที่</option>
+            <option value="6-aug">6 สิงหาคม 2569</option>
+            <option value="7-aug">7 สิงหาคม 2569</option>
+            <option value="8-aug">8 สิงหาคม 2569</option>
+            <option value="9-aug">9 สิงหาคม 2569</option>
+          </select>
+        </div>
+
+        <button class="submit-btn" type="submit">จองสิทธิ์ตอนนี้</button>
+      </form>
+      <p class="form-foot">ข้อมูลของท่านจะถูกเก็บเป็นความลับ ใช้เพื่อการติดต่อกลับเท่านั้น</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  นัดหมายพูดคุยกับที่ปรึกษาการลงทุนได้ที่ <strong>บูธ C9</strong> — Franchise Expo Thailand 2026
+</footer>
+
+</div>
+</body>
+</html>
