@@ -213,6 +213,21 @@
   .form-foot{
     text-align:center; font-size:12px; color:#93a3a1; margin-top:14px;
   }
+  .thanks-step{
+    display:none;
+    text-align:center;
+    padding:18px 4px 8px;
+  }
+  .thanks-step.show{display:block;}
+  .thanks-icon{
+    width:56px; height:56px; border-radius:50%;
+    background:var(--aqua-500); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 16px;
+  }
+  .thanks-step h2{font-size:19px; color:var(--teal-950);}
+  .thanks-step h2 span{color:var(--aqua-500);}
+  .thanks-step p{font-size:13.5px; color:var(--ink-600); margin-top:8px;}
 
   footer{
     background:var(--teal-950); color:rgba(255,255,255,0.6);
@@ -220,6 +235,7 @@
   }
   footer strong{color:#fff;}
 </style>
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
 <body>
 <div class="app-shell">
@@ -271,46 +287,56 @@
 <section class="register" id="register">
   <div class="wrap">
     <div class="form-card">
-      <h2>จองสิทธิ์ล่วงหน้า</h2>
-      <p class="sub">กรอกข้อมูลเพื่อรับสิทธิพิเศษก่อนใคร ทีมงานจะติดต่อกลับก่อนวันงาน</p>
+      <div id="form-step">
+        <h2>จองสิทธิ์ล่วงหน้า</h2>
+        <p class="sub">กรอกข้อมูลเพื่อรับสิทธิพิเศษก่อนใคร ทีมงานจะติดต่อกลับก่อนวันงาน</p>
 
-      <div class="lock-teaser">
-        <div class="lock-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 10V8a6 6 0 1112 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="4" y="10" width="16" height="11" rx="2.5" stroke="currentColor" stroke-width="2"/></svg>
+        <div class="lock-teaser">
+          <div class="lock-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 10V8a6 6 0 1112 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="4" y="10" width="16" height="11" rx="2.5" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <div>
+            <strong>รายละเอียดกิจกรรมประมูล 1 บาท</strong>
+            <span>ปลดล็อกทันทีหลังกรอกฟอร์มด้านล่าง</span>
+          </div>
         </div>
-        <div>
-          <strong>รายละเอียดกิจกรรมประมูล 1 บาท</strong>
-          <span>ปลดล็อกทันทีหลังกรอกฟอร์มด้านล่าง</span>
-        </div>
+
+        <form id="register-form">
+          <div class="field">
+            <label for="name">ชื่อ-นามสกุล</label>
+            <input id="name" type="text" placeholder="ชื่อ นามสกุล" required>
+          </div>
+          <div class="field">
+            <label for="phone">เบอร์โทรศัพท์</label>
+            <input id="phone" type="tel" placeholder="08X-XXX-XXXX" required>
+          </div>
+          <div class="field">
+            <label for="line">LINE ID <span class="opt">(ถ้ามี)</span></label>
+            <input id="line" type="text" placeholder="LINE ID">
+          </div>
+          <div class="field">
+            <label for="visit-date">วันที่คาดว่าจะเข้าร่วมงาน</label>
+            <select id="visit-date" required>
+              <option value="" disabled selected>เลือกวันที่</option>
+              <option value="6-aug">6 สิงหาคม 2569</option>
+              <option value="7-aug">7 สิงหาคม 2569</option>
+              <option value="8-aug">8 สิงหาคม 2569</option>
+              <option value="9-aug">9 สิงหาคม 2569</option>
+            </select>
+          </div>
+
+          <button class="submit-btn" type="submit">จองสิทธิ์ตอนนี้</button>
+        </form>
+        <p class="form-foot">ข้อมูลของท่านจะถูกเก็บเป็นความลับ ใช้เพื่อการติดต่อกลับเท่านั้น</p>
       </div>
 
-      <form onsubmit="event.preventDefault();">
-        <div class="field">
-          <label for="name">ชื่อ-นามสกุล</label>
-          <input id="name" type="text" placeholder="ชื่อ นามสกุล" required>
+      <div id="thanks-step" class="thanks-step">
+        <div class="thanks-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <div class="field">
-          <label for="phone">เบอร์โทรศัพท์</label>
-          <input id="phone" type="tel" placeholder="08X-XXX-XXXX" required>
-        </div>
-        <div class="field">
-          <label for="line">LINE ID <span class="opt">(ถ้ามี)</span></label>
-          <input id="line" type="text" placeholder="LINE ID">
-        </div>
-        <div class="field">
-          <label for="visit-date">วันที่คาดว่าจะเข้าร่วมงาน</label>
-          <select id="visit-date" required>
-            <option value="" disabled selected>เลือกวันที่</option>
-            <option value="6-aug">6 สิงหาคม 2569</option>
-            <option value="7-aug">7 สิงหาคม 2569</option>
-            <option value="8-aug">8 สิงหาคม 2569</option>
-            <option value="9-aug">9 สิงหาคม 2569</option>
-          </select>
-        </div>
-
-        <button class="submit-btn" type="submit">จองสิทธิ์ตอนนี้</button>
-      </form>
-      <p class="form-foot">ข้อมูลของท่านจะถูกเก็บเป็นความลับ ใช้เพื่อการติดต่อกลับเท่านั้น</p>
+        <h2>ขอบคุณคุณ<span id="thanks-name"></span></h2>
+        <p>เจ้าหน้าที่ฝ่ายขายจะติดต่อคุณกลับโดยเร็วที่สุด</p>
+      </div>
     </div>
   </div>
 </section>
@@ -318,6 +344,54 @@
 <footer>
   นัดหมายพูดคุยกับที่ปรึกษาการลงทุนได้ที่ <strong>บูธ C9</strong> — Franchise Expo Thailand 2026
 </footer>
+
+<script>
+  var LIFF_ID = '2009803488-gHtMXHzf';
+  var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzoVwY2tbLNPl5LbSCVg7iBlqIMn1L96R5Fud22bHnXmJ2gwVZGGui5dp3hYeTBXWtf/exec';
+
+  if (window.liff) {
+    liff.init({ liffId: LIFF_ID }).catch(function(err){
+      console.log('LIFF init failed:', err);
+    });
+  }
+
+  document.getElementById('register-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('name').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    var lineId = document.getElementById('line').value.trim();
+    var visitDate = document.getElementById('visit-date').value;
+
+    document.getElementById('thanks-name').textContent = name ? ' ' + name : '';
+    document.getElementById('form-step').style.display = 'none';
+    document.getElementById('thanks-step').classList.add('show');
+
+    // 回填 Google Sheet「Franchise Expo 2026」分頁
+    if (GOOGLE_SCRIPT_URL.indexOf('PASTE_YOUR') === -1) {
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ name: name, phone: phone, line: lineId, visitDate: visitDate })
+      }).catch(function(err){
+        console.log('Google Sheet 寫入失敗:', err);
+      });
+    }
+
+    if (window.liff && liff.isLoggedIn && liff.isLoggedIn()) {
+      liff.sendMessages([{
+        type: 'text',
+        text: 'ขอบคุณคุณ' + (name ? ' ' + name : '') + ' ที่ลงทะเบียนร่วมงาน Franchise Expo Thailand 2026 เจ้าหน้าที่ฝ่ายขายจะติดต่อกลับโดยเร็วที่สุด'
+      }]).then(function(){
+        setTimeout(function(){
+          if (liff.isInClient()) liff.closeWindow();
+        }, 1800);
+      }).catch(function(err){
+        console.log('liff sendMessages failed:', err);
+      });
+    }
+  });
+</script>
 
 </div>
 </body>
