@@ -311,10 +311,6 @@
             <input id="phone" type="tel" placeholder="08X-XXX-XXXX" required>
           </div>
           <div class="field">
-            <label for="line">LINE ID <span class="opt">(ถ้ามี)</span></label>
-            <input id="line" type="text" placeholder="LINE ID">
-          </div>
-          <div class="field">
             <label for="visit-date">วันที่คาดว่าจะเข้าร่วมงาน</label>
             <select id="visit-date" required>
               <option value="" disabled selected>เลือกวันที่</option>
@@ -322,6 +318,7 @@
               <option value="7-aug">7 สิงหาคม 2569</option>
               <option value="8-aug">8 สิงหาคม 2569</option>
               <option value="9-aug">9 สิงหาคม 2569</option>
+              <option value="not-attending">ไม่ไปงาน แต่สนใจแฟรนไชส์ร้านสะดวกซัก</option>
             </select>
           </div>
 
@@ -359,7 +356,6 @@
     e.preventDefault();
     var name = document.getElementById('name').value.trim();
     var phone = document.getElementById('phone').value.trim();
-    var lineId = document.getElementById('line').value.trim();
     var visitDate = document.getElementById('visit-date').value;
 
     document.getElementById('thanks-name').textContent = name ? ' ' + name : '';
@@ -372,7 +368,7 @@
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({ name: name, phone: phone, line: lineId, visitDate: visitDate })
+        body: JSON.stringify({ name: name, phone: phone, visitDate: visitDate })
       }).catch(function(err){
         console.log('Google Sheet 寫入失敗:', err);
       });
