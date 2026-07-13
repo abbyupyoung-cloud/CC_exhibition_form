@@ -377,7 +377,7 @@
     if (window.liff && liff.isLoggedIn && liff.isLoggedIn()) {
       liff.sendMessages([{
         type: 'text',
-        text: 'ขอบคุณคุณ' + (name ? ' ' + name : '') + ' ที่ลงทะเบียนร่วมงาน Franchise Expo Thailand 2026 เจ้าหน้าที่ฝ่ายขายจะติดต่อกลับโดยเร็วที่สุด'
+        text: 'ขอบคุณคุณ' + (name ? ' ' + name : '') + ' ที่ลงทะเบียนร่วมงาน Franchise Expo Thailand 2026 เจ้าหน้าที่ฝ่ายขายจะติดต่อกลับโดยเร็วที่สุด\n\nกำหนดการประมูล 1 บาท:\n🗓 วันเสาร์ (8 ส.ค.) : ประมูลเครื่องซักผ้าอบผ้า AQUA แบบ 2-in-1\n🗓 วันอาทิตย์ (9 ส.ค.) : ประมูลเครื่องซักรองเท้า AQUA'
       }]).then(function(){
         setTimeout(function(){
           if (liff.isInClient()) liff.closeWindow();
