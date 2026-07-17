@@ -381,15 +381,14 @@
 
     // 確保 LIFF 初始化完成後，才去抓 LINE 名稱，避免抓不到值
     liffReady.then(function(){
-      if (window.liff && liff.isLoggedIn && liff.isLoggedIn()) {
-        return liff.getProfile().then(function(profile){
-          return profile.displayName || '';
-        }).catch(function(err){
-          console.log('liff getProfile failed:', err);
-          return '';
-        });
-      }
-      return '';
+      if (!window.liff) return '(no liff object — SDK not loaded)';
+      if (!(liff.isLoggedIn && liff.isLoggedIn())) return '(not logged in via LIFF)';
+      return liff.getProfile().then(function(profile){
+        return profile.displayName || '';
+      }).catch(function(err){
+        console.log('liff getProfile failed. Error name:', err && err.name, '| message:', err && err.message);
+        return '(getProfile error: ' + (err && err.message ? err.message : 'unknown') + ')';
+      });
     }).then(function(lineName){
 
       // 回填 Google Sheet「Franchise Expo 2026」分頁
