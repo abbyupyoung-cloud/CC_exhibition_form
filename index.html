@@ -363,27 +363,14 @@
 <script>
   var LIFF_ID = '2009803488-gHtMXHzf';
   var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzoVwY2tbLNPl5LbSCVg7iBlqIMn1L96R5Fud22bHnXmJ2gwVZGGui5dp3hYeTBXWtf/exec';
-  var lineDisplayName = '';
-
-  if (window.liff) {
-    liff.init({ liffId: LIFF_ID }).then(function(){
-      if (liff.isLoggedIn()) {
-        liff.getProfile().then(function(profile){
-          lineDisplayName = profile.displayName || '';
-        }).catch(function(err){
-          console.log('liff getProfile failed:', err);
-        });
-      }
-    }).catch(function(err){
-      console.log('LIFF init failed:', err);
-    });
-  }
+  var liffReady = window.liff
+    ? liff.init({ liffId: LIFF_ID }).catch(function(err){ console.log('LIFF init failed:', err); })
+    : Promise.resolve();
 
   document.getElementById('register-form').addEventListener('submit', function(e){
     e.preventDefault();
     var name = document.getElementById('name').value.trim();
     var phone = document.getElementById('phone').value.trim();
-    var lineName = lineDisplayName;
     var city = document.getElementById('city').value.trim();
     var visitDate = document.getElementById('visit-date').value;
     var source = document.getElementById('source').value;
@@ -392,30 +379,44 @@
     document.getElementById('form-step').style.display = 'none';
     document.getElementById('thanks-step').classList.add('show');
 
-    // 回填 Google Sheet「Franchise Expo 2026」分頁
-    if (GOOGLE_SCRIPT_URL.indexOf('PASTE_YOUR') === -1) {
-      fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({ name: name, phone: phone, lineName: lineName, city: city, visitDate: visitDate, source: source })
-      }).catch(function(err){
-        console.log('Google Sheet 寫入失敗:', err);
-      });
-    }
+    // 確保 LIFF 初始化完成後，才去抓 LINE 名稱，避免抓不到值
+    liffReady.then(function(){
+      if (window.liff && liff.isLoggedIn && liff.isLoggedIn()) {
+        return liff.getProfile().then(function(profile){
+          return profile.displayName || '';
+        }).catch(function(err){
+          console.log('liff getProfile failed:', err);
+          return '';
+        });
+      }
+      return '';
+    }).then(function(lineName){
 
-    if (window.liff && liff.isLoggedIn && liff.isLoggedIn()) {
-      liff.sendMessages([{
-        type: 'text',
-        text: 'ขอบคุณคุณ' + (name ? ' ' + name : '') + ' ที่ลงทะเบียนร่วมงาน Franchise Expo Thailand 2026 เจ้าหน้าที่ฝ่ายขายจะติดต่อกลับโดยเร็วที่สุด\n\nกำหนดการประมูล 1 บาท:\n🗓 วันเสาร์ (8 ส.ค.) : ประมูลเครื่องซักผ้าอบผ้า AQUA แบบ 2-in-1\n🗓 วันอาทิตย์ (9 ส.ค.) : ประมูลเครื่องซักรองเท้า AQUA'
-      }]).then(function(){
-        setTimeout(function(){
-          if (liff.isInClient()) liff.closeWindow();
-        }, 1800);
-      }).catch(function(err){
-        console.log('liff sendMessages failed:', err);
-      });
-    }
+      // 回填 Google Sheet「Franchise Expo 2026」分頁
+      if (GOOGLE_SCRIPT_URL.indexOf('PASTE_YOUR') === -1) {
+        fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({ name: name, phone: phone, lineName: lineName, city: city, visitDate: visitDate, source: source })
+        }).catch(function(err){
+          console.log('Google Sheet 寫入失敗:', err);
+        });
+      }
+
+      if (window.liff && liff.isLoggedIn && liff.isLoggedIn()) {
+        liff.sendMessages([{
+          type: 'text',
+          text: 'ขอบคุณคุณ' + (name ? ' ' + name : '') + ' ที่ลงทะเบียนร่วมงาน Franchise Expo Thailand 2026 เจ้าหน้าที่ฝ่ายขายจะติดต่อกลับโดยเร็วที่สุด\n\nกำหนดการประมูล 1 บาท:\n🗓 วันเสาร์ (8 ส.ค.) : ประมูลเครื่องซักผ้าอบผ้า AQUA แบบ 2-in-1\n🗓 วันอาทิตย์ (9 ส.ค.) : ประมูลเครื่องซักรองเท้า AQUA'
+        }]).then(function(){
+          setTimeout(function(){
+            if (liff.isInClient()) liff.closeWindow();
+          }, 1800);
+        }).catch(function(err){
+          console.log('liff sendMessages failed:', err);
+        });
+      }
+    });
   });
 </script>
 
