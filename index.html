@@ -187,6 +187,10 @@
     background-position:right 14px center;
     padding-right:36px;
   }
+  .field input[readonly]{
+    background:#eef1f0;
+    color:var(--ink-600);
+  }
   .field input:focus, .field select:focus{
     outline:2px solid var(--aqua-500);
     outline-offset:1px;
@@ -296,8 +300,8 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 10V8a6 6 0 1112 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="4" y="10" width="16" height="11" rx="2.5" stroke="currentColor" stroke-width="2"/></svg>
           </div>
           <div>
-            <strong>อยากรู้วันจัดกิจกรรมประมูล 1 บาท?</strong>
-            <span>กรอกแบบฟอร์มด้านล่าง แล้วรับข้อมูลวันประมูลได้ทันที</span>
+            <strong>วันที่จัดกิจกรรมประมูล 1 บาท</strong>
+            <span>กรอกแบบฟอร์มด้านล่าง รับทราบได้ทันที</span>
           </div>
         </div>
 
@@ -311,6 +315,10 @@
             <input id="phone" type="tel" placeholder="08X-XXX-XXXX" required>
           </div>
           <div class="field">
+            <label for="city">จังหวัด / เมือง</label>
+            <input id="city" type="text" placeholder="เช่น กรุงเทพมหานคร" required>
+          </div>
+          <div class="field">
             <label for="visit-date">วันที่คาดว่าจะเข้าร่วมงาน</label>
             <select id="visit-date" required>
               <option value="" disabled selected>เลือกวันที่</option>
@@ -319,6 +327,16 @@
               <option value="8-aug">8 สิงหาคม 2569</option>
               <option value="9-aug">9 สิงหาคม 2569</option>
               <option value="not-attending">ไม่ไปงาน แต่สนใจแฟรนไชส์ร้านสะดวกซัก</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="source">รู้จักงานนี้จากช่องทางไหน</label>
+            <select id="source" required>
+              <option value="" disabled selected>เลือกช่องทาง</option>
+              <option value="expo">พบในงาน Franchise Expo</option>
+              <option value="facebook">Facebook</option>
+              <option value="sales">พนักงานขายแนะนำ</option>
+              <option value="friend">เพื่อนแนะนำ</option>
             </select>
           </div>
 
@@ -345,9 +363,18 @@
 <script>
   var LIFF_ID = '2009803488-gHtMXHzf';
   var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzoVwY2tbLNPl5LbSCVg7iBlqIMn1L96R5Fud22bHnXmJ2gwVZGGui5dp3hYeTBXWtf/exec';
+  var lineDisplayName = '';
 
   if (window.liff) {
-    liff.init({ liffId: LIFF_ID }).catch(function(err){
+    liff.init({ liffId: LIFF_ID }).then(function(){
+      if (liff.isLoggedIn()) {
+        liff.getProfile().then(function(profile){
+          lineDisplayName = profile.displayName || '';
+        }).catch(function(err){
+          console.log('liff getProfile failed:', err);
+        });
+      }
+    }).catch(function(err){
       console.log('LIFF init failed:', err);
     });
   }
@@ -356,7 +383,10 @@
     e.preventDefault();
     var name = document.getElementById('name').value.trim();
     var phone = document.getElementById('phone').value.trim();
+    var lineName = lineDisplayName;
+    var city = document.getElementById('city').value.trim();
     var visitDate = document.getElementById('visit-date').value;
+    var source = document.getElementById('source').value;
 
     document.getElementById('thanks-name').textContent = name ? ' ' + name : '';
     document.getElementById('form-step').style.display = 'none';
@@ -368,7 +398,7 @@
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({ name: name, phone: phone, visitDate: visitDate })
+        body: JSON.stringify({ name: name, phone: phone, lineName: lineName, city: city, visitDate: visitDate, source: source })
       }).catch(function(err){
         console.log('Google Sheet 寫入失敗:', err);
       });
